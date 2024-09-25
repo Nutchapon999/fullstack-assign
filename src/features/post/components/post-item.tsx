@@ -14,7 +14,19 @@ interface PostItemProps {
   community: "History" | "Food" | "Pets" | "Health" | "Fashion" | "Exercise" | "Others";
   createdAt: string;
   createdBy: string | undefined;
+  searchTerm: string;
 }
+
+const highlightText = (text: string, highlight: string) => {
+  if (highlight.length < 2) return text;
+
+  const parts = text.split(new RegExp(`(${highlight})`, 'gi')); 
+  return parts.map((part, index) => 
+    part.toLowerCase() === highlight.toLowerCase() ? (
+      <span key={index} className="bg-yellow-200">{part}</span> 
+    ) : part
+  );
+};
 
 export const PostItem = ({
   id,
@@ -22,10 +34,11 @@ export const PostItem = ({
   description,
   community,
   createdAt,
-  createdBy
+  createdBy,
+  searchTerm
 }: PostItemProps) => {
   return (
-    <div role="button" className="bg-white h-[200px] p-5 border-b-[1.5px] hover:bg-white/80 transition-all duration-200">
+    <div role="button" className="bg-white h-[200px] p-5 hover:bg-white/80 transition-all duration-200">
       <div className="flex flex-col justify-between h-full space-y-2">
         <div className="flex flex-col space-y-4">
           <div className="flex items-center space-x-3">
@@ -45,7 +58,9 @@ export const PostItem = ({
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex flex-col">
-            <h1 className="text-base font-semibold text-ellipsis overflow-hidden whitespace-nowrap">{ title }</h1>
+            <h1 className="text-base font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
+              { highlightText(title, searchTerm) }
+            </h1>
             <p className="text-xs font-normal line-clamp-2 overflow-hidden">
               { description }
             </p>

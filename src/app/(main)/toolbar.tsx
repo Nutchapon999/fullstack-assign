@@ -1,10 +1,13 @@
 "use client";
 
+import { useQueryState } from "nuqs";
 import { useToggle } from "react-use";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Check, ChevronDown, Search } from "lucide-react";
 
-import { ChevronDown, Search } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { communities } from "@/db/schema";
 
 import {
   DropdownMenu,
@@ -15,9 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import { useAuthWall } from "@/features/auth/hooks/use-auth-wall";
 import { usePostModal } from "@/features/post/store/use-post-modal";
-import { communities } from "@/db/schema";
 
 export const Toolbar = () => {
   const router = useRouter();
@@ -25,7 +26,9 @@ export const Toolbar = () => {
   
   const { onOpen } = usePostModal();
 
-  const [search, toggleSearch] = useToggle(false);
+  const [com, setCommunity] = useQueryState("community");
+  const [search, setSearch] = useQueryState("search");
+  const [searchBn, toggleSearchBn] = useToggle(false);
 
   const handleOpen = () => {
     if (status === "unauthenticated") {
@@ -35,24 +38,36 @@ export const Toolbar = () => {
     onOpen();
   }
 
+  const handleCommunityClick = (community: string) => {
+    if (community === com) {
+      setCommunity(null);
+      router.replace("/"); 
+    } else {
+      setCommunity(community); 
+    }
+  };
+
+
   return (
     <div className="flex items-center gap-x-2">
       <div className="relative w-full hidden sm:flex">
         <Input
+          value={search || ""}
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search..."
           className="pl-10 pr-4 py-2 w-full"
         />
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
       </div>
-      {!search && (
+      {!searchBn && (
         <div className="flex-1 flex sm:hidden">
-          <Button size="icon" variant="ghost" onClick={toggleSearch}>
+          <Button size="icon" variant="ghost" onClick={toggleSearchBn}>
             <Search className="size-4" />
           </Button>
         </div>
       )}
-      {!search && (
+      {!searchBn && (
         <div className="flex items-center gap-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -62,11 +77,20 @@ export const Toolbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[320px] p-0" align="end">
-              {communities.enumValues.map((community) => (
-                <DropdownMenuItem key={community} className="rounded-none focus:bg-[#D8E9E4]"> 
-                  { community }
-                </DropdownMenuItem>
-              ))}
+              {communities.enumValues.map((community) => {
+                const checked = community === com;
+
+                return (
+                  <DropdownMenuItem 
+                    key={community}
+                    onClick={() => handleCommunityClick(community)}
+                    className={cn("rounded-none focus:bg-[#D8E9E4]", checked && "bg-[#D8E9E4]")}
+                  > 
+                    { community }
+                    { checked && <Check className="size-4 ml-auto" />}
+                  </DropdownMenuItem>
+                )
+              })}
             </DropdownMenuContent>
           </DropdownMenu>
           <Button onClick={handleOpen}>
@@ -74,14 +98,14 @@ export const Toolbar = () => {
           </Button>
         </div>
       )}
-      {search && (
+      {searchBn && (
         <div className="relative w-full sm:hidden flex">
           <Input
             type="text"
             placeholder="Search..."
             className="pl-10 pr-4 py-2 w-full"
           />
-          <Button onClick={toggleSearch} size="icon" variant="ghost" className="absolute left-3 top-1/2 transform -translate-y-1/2">
+          <Button onClick={toggleSearchBn} size="icon" variant="ghost" className="absolute left-3 top-1/2 transform -translate-y-1/2">
             <Search className="text-gray-400 w-4 h-4" />
           </Button>
         </div>

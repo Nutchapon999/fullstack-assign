@@ -1,0 +1,1 @@
+export type Communities = "History" | "Food" | "Pets" | "Health" | "Fashion" | "Exercise" | "Others";
