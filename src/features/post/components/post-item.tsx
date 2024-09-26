@@ -1,7 +1,8 @@
 import { useRouter } from "next/navigation";
+import { useConfirm } from "@/hooks/use-confirm";
 import { Edit, MessageCircle, Trash2 } from "lucide-react";
 
-import { getFallback } from "@/lib/utils";
+import { getFallback, cn } from "@/lib/utils";
 
 import {
   Avatar,
@@ -13,7 +14,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { highlightText } from "@/features/post/utils";
 import { usePostModal } from "../store/use-post-modal";
-import { useConfirm } from "@/hooks/use-confirm";
 import { useDeletePost } from "../api/use-delete-post";
 
 interface PostItemProps {
@@ -25,9 +25,9 @@ interface PostItemProps {
   searchTerm?: string;
   comment: number;
   isOur: boolean;
+  isList: boolean;
+  blogLink?: string;
 }
-
-
 
 export const PostItem = ({
   id,
@@ -37,7 +37,9 @@ export const PostItem = ({
   createdBy,
   searchTerm,
   comment,
-  isOur
+  isOur,
+  isList,
+  blogLink = ""
 }: PostItemProps) => {
   const router = useRouter();
   const { onOpen } = usePostModal();
@@ -68,8 +70,8 @@ export const PostItem = ({
     <>
       <ConfirmationDialog />
       <div                            
-        onClick={() => router.push(`/posts/${id}`)}
-        className="bg-white h-[200px] hover:bg-white/80 transition-all duration-200 relative"
+        onClick={() => router.push(isOur ? blogLink :`/posts/${id}`)}
+        className={cn("bg-white h-[200px] hover:bg-white/80 transition-all duration-200 relative", isList && "p-5")}
       >
         {isOur &&(
           <div className="absolute top-[6px] right-4 flex items-center p-[2px] rounded-sm">

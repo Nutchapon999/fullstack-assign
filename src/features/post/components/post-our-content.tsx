@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
-import { Loader } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useUserId } from "@/hooks/use-user-id";
 import { useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/use-debounce";
 
+import { Button } from "@/components/ui/button";
+
 import { PostItem } from "@/features/post/components/post-item";
 
-import { useGetOurPosts } from "../api/use-get-our-posts";
-import { useUserId } from "@/hooks/use-user-id";
+import { useGetOurPosts } from "@/features/post/api/use-get-our-posts";
 
 export const PostOurContent = () => {
   const userId = useUserId();
+  const session = useSession();
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || "";
@@ -32,17 +34,6 @@ export const PostOurContent = () => {
     userId
   );
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && hasNextPage) {
-        fetchNextPage();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasNextPage, fetchNextPage]);
-
   if (isLoading) {
     return (
       <div className="flex flex-col gap-y-2">
@@ -56,7 +47,8 @@ export const PostOurContent = () => {
   };
 
   return (
-    <section className="w-full flex flex-col justify-start rounded-3xl overflow-hidden">
+    <section className="w-full flex flex-col justify-start gap-y-4">
+      <div className="rounded-3xl overflow-hidden">
       {posts?.pages.map((page) =>
         page.data.map((data) => (
           <PostItem
@@ -68,11 +60,23 @@ export const PostOurContent = () => {
             createdBy={data.userName || ""}
             searchTerm={debounceSearch}
             comment={data.commentCount}
+            blogLink={`/blogs/${session.data?.user?.id}`}
             isOur
+            isList
           />
         ))
       )}
-      {isFetchingNextPage && <Loader className="size-10 animate-spin text-muted-foreground" />}
+      </div>
+      {hasNextPage && (
+        <Button 
+          variant="outline" 
+          onClick={() => fetchNextPage()} 
+          disabled={isFetchingNextPage}
+          className="rounded-full"
+        >
+          {isFetchingNextPage ? 'Loading more...' : 'Load more...'}
+        </Button>
+      )}
     </section>
   );
 }

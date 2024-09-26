@@ -33,6 +33,7 @@ const PostByIdPage = () => {
           createdBy={data.userName || ""}
           comment={data.commentCount}
           isOur={false}
+          isList={false}
         />
         <CommentSection />
       </div>

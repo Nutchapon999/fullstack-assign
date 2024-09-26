@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 import { auth } from "@/auth";
+
 import { Button } from "@/components/ui/button";
 
 import { Logo } from "@/components/logo";
 
-import { UserButton } from "@/features/auth/components/user-button";
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
 import { MobileSidebar } from "./mobile-sidebar";
+
+import { UserButton } from "@/features/auth/components/user-button";
 
 export const Header = async () => {
   const session = await auth();
@@ -25,11 +27,7 @@ export const Header = async () => {
           <UserButton />
         )}
       </div>
-      <MobileSidebar>
-        <Button variant="ghost" size="icon" className="sm:hidden flex justify-center items-center">
-          <MenuIcon className="size-4 text-white" />
-        </Button>
-      </MobileSidebar>
+      <MobileSidebar />
     </header>
   );
 }

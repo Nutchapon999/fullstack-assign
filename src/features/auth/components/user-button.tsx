@@ -26,7 +26,7 @@ export const UserButton = () => {
 
   if (session.status === "unauthenticated" || !session.data) return null;
 
-  const name = session.data?.user?.name!;
+  const name = session.data?.user?.name;
 
   return (
     <DropdownMenu>
@@ -34,7 +34,7 @@ export const UserButton = () => {
         <Avatar className="size-7 hover:opacity-75 transition cursor-pointer">
           <AvatarImage src="" />
           <AvatarFallback>
-            { getFallback(name) }
+            { getFallback(name || "") }
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
