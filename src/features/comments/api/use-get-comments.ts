@@ -1,27 +1,29 @@
+import { InferResponseType } from "hono";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/client";
-import { InferResponseType } from "hono";
 
-type ResponseType = InferResponseType<typeof client.api.posts.$get, 200>;
+type ResponseType = InferResponseType<typeof client.api.comments[":postId"]["$get"], 200>;
 
-export const useGetPosts = (community: string, search: string) => {
+export const useGetComments = (postId: string) => {
   const infiniteQuery = useInfiniteQuery<ResponseType, Error>({
+    enabled: !!postId,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage,
-    queryKey: ["posts", search, community],
+    queryKey: ["comments", postId],
     queryFn: async ({ pageParam }) => {
-      const response = await client.api.posts.$get({
+      const response = await client.api.comments[":postId"]["$get"]({
+        param: {
+          postId
+        },
         query: {
-          community,
-          search,
           page: (pageParam as number).toString(),
-          limit: "5"
+          limit: "5",
         }
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch posts");
+        throw new Error("Failed to fetch comments");
       }
 
       return await response.json();

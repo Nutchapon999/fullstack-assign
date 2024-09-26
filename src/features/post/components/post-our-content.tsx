@@ -7,9 +7,11 @@ import { useDebounce } from "@/hooks/use-debounce";
 
 import { PostItem } from "@/features/post/components/post-item";
 
-import { useGetPosts } from "@/features/post/api/use-get-posts";
+import { useGetOurPosts } from "../api/use-get-our-posts";
+import { useUserId } from "@/hooks/use-user-id";
 
-export const PostContent = () => {
+export const PostOurContent = () => {
+  const userId = useUserId();
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || "";
@@ -24,9 +26,10 @@ export const PostContent = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetPosts(
+  } = useGetOurPosts(
     debounceCommunity,
-    debounceSearch
+    debounceSearch,
+    userId
   );
 
   useEffect(() => {
@@ -65,7 +68,7 @@ export const PostContent = () => {
             createdBy={data.userName || ""}
             searchTerm={debounceSearch}
             comment={data.commentCount}
-            isOur={false}
+            isOur
           />
         ))
       )}

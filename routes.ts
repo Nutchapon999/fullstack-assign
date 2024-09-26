@@ -1,7 +1,10 @@
 export const publicRoutes = [
   "/",
-  "/api/users",
-  "/api/posts",
+  // "/api/users",
+  // "/api/posts",
+  // "/api/posts/our",
+  "/posts/:id",
+  "/:path*",
 ];
 
 export const authRoutes = [

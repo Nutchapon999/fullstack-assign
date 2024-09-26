@@ -1,4 +1,3 @@
-import { communities } from "@/db/schema";
 import { z } from "zod";
 
 export const PostSchema = z.object({
@@ -21,5 +20,5 @@ export const PostSchema = z.object({
   community: z
     .enum(["History", "Food", "Pets", "Health", "Fashion", "Exercise", "Others"], {
       required_error: "Please select a tag.",
-  }),
+    }).optional(),
 })

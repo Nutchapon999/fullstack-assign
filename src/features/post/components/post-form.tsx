@@ -1,7 +1,5 @@
 "use client";
 
-import toast from "react-hot-toast";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,100 +28,106 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { PostSchema } from "@/features/post/schema";
 
 import { usePostModal } from "@/features/post/store/use-post-modal";
-import { useCreatePost } from "@/features/post/api/use-create-post";
 
-type Post = z.infer<typeof PostSchema>
+type Post = z.infer<typeof PostSchema>;
 
-export const PostForm = () => {
+interface PostFormProps {
+  id?: string;
+  defaultValues?: Post;
+  onSubmit: (value: Post) => void;
+  disabled?: boolean;
+}
+
+export const PostForm = ({
+  id,
+  defaultValues,
+  onSubmit,
+  disabled
+}: PostFormProps) => {
   const { onClose } = usePostModal();
-
-  const mutation = useCreatePost();
 
   const form = useForm<Post>({
     resolver: zodResolver(PostSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      community: undefined,
-    }
+    defaultValues: defaultValues
   });
 
-  const onSubmit = (value: Post) => {
-    mutation.mutate(value, {
-      onSuccess: () => {
-        form.reset();
-        toast.success("Created post");
-
-        onClose();
-      }
-    });
+  const handleSubmit = (value: Post) => {
+    onSubmit(value);
   }
 
   return (
     <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField 
-          control={form.control}
-          name="community"
-          render={({ field }) => (
-            <FormItem>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <form className="flex-1 flex flex-col" onSubmit={form.handleSubmit(handleSubmit)}>
+        <div className="flex-1 space-y-4 ">
+          <FormField 
+            control={form.control}
+            name="community"
+            render={({ field }) => (
+              <FormItem>
+                <Select 
+                  disabled={disabled}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <FormControl>
+                    <SelectTrigger className="border-[#49A569] sm:w-[50%]">
+                      <SelectValue placeholder="Choose a community" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {communities.enumValues.map((community, index) => (
+                      <SelectItem key={index} value={community}>
+                        { community }
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField 
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
                 <FormControl>
-                  <SelectTrigger className="border-[#49A569] w-[50%]">
-                    <SelectValue placeholder="Choose a community" />
-                  </SelectTrigger>
+                  <Input 
+                    {...field}
+                    type="text"
+                    className="h-10"
+                    disabled={disabled}
+                    placeholder="Title"
+                  />
                 </FormControl>
-                <SelectContent>
-                  {communities.enumValues.map((community, index) => (
-                    <SelectItem key={index} value={community}>
-                      { community }
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField 
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input 
-                  {...field}
-                  type="text"
-                  className="h-10"
-                  placeholder="Title"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField 
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea 
-                  {...field}
-                  className="h-10 text-sm py-2 resize-none"
-                  placeholder="What's on your mind"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <DialogFooter>
-          <Button variant="outline" type="button" onClick={onClose}>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField 
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="h-full flex-1">
+                <FormControl>
+                  <Textarea 
+                    {...field}
+                    disabled={disabled}
+                    className="h-[234px] text-sm py-2 resize-none"
+                    placeholder="What's on your mind"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <DialogFooter className="flex-col gap-y-2">
+          <Button variant="outline" type="button" onClick={onClose} disabled={disabled}>
             Cancel
           </Button>
-          <Button type="submit">
-            Post
+          <Button type="submit" disabled={disabled}>
+            { id ? "Confirm" : "Post" }
           </Button>
         </DialogFooter>
       </form>

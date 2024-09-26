@@ -6,6 +6,7 @@ import { z } from "zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 
 import { 
   Form,
@@ -19,10 +20,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { SignInSchema } from "@/features/auth/schema";
+import { useState } from "react";
+import { FormError } from "./form-error";
+import { DEFAULT_LOGIN_REDIRECT } from "../../../../routes";
 
 type SignIn = z.infer<typeof SignInSchema>;
 
 export const SignInForm = () => {
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl");
+  const urlError = searchParams.get("error");
+
+  const [error, setError] = useState<string | undefined>("");
+
   const form = useForm<SignIn>({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
@@ -31,10 +42,12 @@ export const SignInForm = () => {
   });
 
   const onSubmit = (value: SignIn) => {
+    setError("")
+
     signIn("credentials", {
       username: value.username,
-      callbackUrl: "/",
-    })
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+    }).catch(() => setError("Something went wrong"))
   }
 
   return (
@@ -57,6 +70,7 @@ export const SignInForm = () => {
             </FormItem>
           )}
         />
+        <FormError message={error || urlError} />
         <Button className="w-full h-8" type="submit">
           Continue
         </Button>

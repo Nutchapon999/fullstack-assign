@@ -1,22 +1,26 @@
+import { InferResponseType } from "hono";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/client";
-import { InferResponseType } from "hono";
 
-type ResponseType = InferResponseType<typeof client.api.posts.$get, 200>;
+type ResponseType = InferResponseType<typeof client.api.posts["our"][":userId"]["$get"], 200>;
 
-export const useGetPosts = (community: string, search: string) => {
+export const useGetOurPosts = (community: string, search: string, userId: string) => {
   const infiniteQuery = useInfiniteQuery<ResponseType, Error>({
+    enabled: !!userId,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage,
-    queryKey: ["posts", search, community],
+    queryKey: ["ourPosts", search, community],
     queryFn: async ({ pageParam }) => {
-      const response = await client.api.posts.$get({
+      const response = await client.api.posts["our"][":userId"]["$get"]({
         query: {
           community,
           search,
           page: (pageParam as number).toString(),
           limit: "5"
+        },
+        param: {
+          userId,
         }
       });
 

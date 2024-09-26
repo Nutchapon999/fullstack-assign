@@ -9,18 +9,20 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 
-import { PostSchema } from "../schema";
+import { PostSchema } from "@/features/post/schema";
+
 import { PostForm } from "@/features/post/components/post-form";
-import { usePostModal } from "../store/use-post-modal";
-import { useCreatePost } from "../api/use-create-post";
+
+import { useEditPost } from "@/features/post/api/use-edit-post";
+import { usePostModal } from "@/features/post/store/use-post-modal";
 
 type Post = z.infer<typeof PostSchema>;
 
-export const PostCreateModal = () => {
-  const { isOpen, onClose, type } = usePostModal();
-  const isOpenModal = isOpen && type === "create";
+export const PostEditModal = () => {
+  const { isOpen, onClose, data, type, id } = usePostModal();
+  const isOpenModal = isOpen && type === "edit";
 
-  const mutation = useCreatePost();
+  const mutation = useEditPost(id);
 
   const onSubmit = (value: Post) => {
     mutation.mutate(value, {
@@ -32,22 +34,24 @@ export const PostCreateModal = () => {
     });
   }
 
+  const defaultValues = {
+    title: data.title || "",
+    description: data.description || "",
+    community: data.community
+  }
+
   return (
     <Dialog open={isOpenModal} onOpenChange={onClose}>
       <DialogContent className="max-w-[343px] h-[580px] sm:max-w-[685px] sm:h-[510px] flex flex-col justify-between">
         <DialogHeader>
           <DialogTitle className="text-start">
-            Create Post
+            Edit Post
           </DialogTitle>
         </DialogHeader>
         <PostForm
+          defaultValues={defaultValues}
           onSubmit={onSubmit}
           disabled={mutation.isPending}
-          defaultValues={{
-            title: "",
-            description: "",
-            community: undefined,
-          }}
         />
       </DialogContent>
     </Dialog>

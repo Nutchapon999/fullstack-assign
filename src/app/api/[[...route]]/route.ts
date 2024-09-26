@@ -6,6 +6,7 @@ import { AuthConfig, initAuthConfig } from "@hono/auth-js";
 
 import users from "./users";
 import posts from "./posts";
+import comments from "./comments";
 
 export const runtime = "nodejs";
 
@@ -23,6 +24,7 @@ app.use("*", initAuthConfig(getAuthConfig));
 const routes = app
   .route("/users", users)
   .route("/posts", posts)
+  .route("/comments", comments)
 
 export const GET = handle(app);
 export const POST = handle(app);

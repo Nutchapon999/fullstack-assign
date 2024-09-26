@@ -4,6 +4,7 @@ import {
   text,
   timestamp
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const users = pgTable("user", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
@@ -30,3 +31,5 @@ export const comments = pgTable("comment", {
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { mode: "date" }).$onUpdate(() => new Date()).notNull(),
 });
+
+export const commentsInsertSchema = createInsertSchema(comments);

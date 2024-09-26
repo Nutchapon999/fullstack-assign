@@ -1,5 +1,4 @@
 import NextAuth, { Session } from "next-auth";
-
 import authConfig from "./auth.config";
 import {
   DEFAULT_LOGIN_REDIRECT,
@@ -16,20 +15,31 @@ export default auth((req: NextRequest & { auth: Session | null }): Response | vo
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  // Check if the requested route is a public route
+  const isPublicRoute = publicRoutes.some(route => {
+    const regexPath = route.replace(/:\w+/g, '[^/]+').replace(/\*/g, '.*');
+    const dynamicRouteRegex = new RegExp(`^${regexPath}$`);
+    return dynamicRouteRegex.test(nextUrl.pathname);
+  });
+
+  console.log('Request Path:', nextUrl.pathname);
+  console.log('Is Logged In:', isLoggedIn);
+  console.log('Is Public Route:', isPublicRoute);
+
   if (isApiAuthRoute) {
-    return;
+    return; // Allow API auth routes without redirection
   }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    return;
+    return; // Allow access to auth routes if not logged in
   }
 
+  // Redirect unauthenticated users trying to access protected routes
   if (!isLoggedIn && !isPublicRoute) {
     let callbackUrl = nextUrl.pathname;
     if (nextUrl.search) {
@@ -37,16 +47,13 @@ export default auth((req: NextRequest & { auth: Session | null }): Response | vo
     }
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-
-    return Response.redirect(new URL(`/auth/sign-in?callbackUrl=${encodedCallbackUrl}`, nextUrl))
+    return Response.redirect(new URL(`/auth/sign-in?callbackUrl=${encodedCallbackUrl}`, nextUrl));
   }
 
-  return;
-})
+  return; // Allow access if it's a public route or the user is logged in
+});
 
-// Optionally, don't invoke Middleware on some paths
+// Don't invoke Middleware on certain paths
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/"],
-}
-
-// "/(api|trpc)(.*)"
+  matcher: ["/((?!.*\\..*|_next).*)", "/"], // Match all routes except files and API
+};

@@ -24,7 +24,7 @@ export const Toolbar = () => {
   const router = useRouter();
   const { status } = useSession();
   
-  const { onOpen } = usePostModal();
+  const { onOpen, type } = usePostModal();
 
   const [com, setCommunity] = useQueryState("community");
   const [search, setSearch] = useQueryState("search");
@@ -35,7 +35,7 @@ export const Toolbar = () => {
       return router.push("/auth/sign-in");
     }
 
-    onOpen();
+    onOpen("create");
   }
 
   const handleCommunityClick = (community: string) => {
@@ -47,13 +47,23 @@ export const Toolbar = () => {
     }
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (value) {
+      setSearch(value);
+    } else {
+      setSearch(null);
+      router.replace("/");
+    }
+  }
 
   return (
     <div className="flex items-center gap-x-2">
       <div className="relative w-full hidden sm:flex">
         <Input
           value={search || ""}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleSearch}
           type="text"
           placeholder="Search..."
           className="pl-10 pr-4 py-2 w-full"
@@ -101,6 +111,8 @@ export const Toolbar = () => {
       {searchBn && (
         <div className="relative w-full sm:hidden flex">
           <Input
+            value={search || ""}
+            onChange={handleSearch}
             type="text"
             placeholder="Search..."
             className="pl-10 pr-4 py-2 w-full"
