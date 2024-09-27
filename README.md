@@ -1,5 +1,21 @@
 # Fullstack Assignment
 
+## Environment Variables
+
+This project uses environment variables for configuration. Create a `.env` file in the root directory of the project and add the following variables:
+
+```
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+DATABASE_URL=postgresql://neondb_owner:VAL21fvjOWze@ep-snowy-band-a17bokcb.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+AUTH_SECRET="2dvPbyfZRtXm/ccIdRYVjTTMZIxRk83XjMOc/jtAdWU="
+```
+
+### Variable Descriptions:
+
+- `NEXT_PUBLIC_APP_URL`: The public URL of your application. Used for client-side references.
+- `DATABASE_URL`: The connection string for your PostgreSQL database. This example uses a Neon database.
+- `AUTH_SECRET`: A secret key used for authentication. This was added by `npx auth`. For more information, visit: https://cli.authjs.dev
+
 ## Libraries and Dependencies
 
 This project uses the following libraries and dependencies:
@@ -45,24 +61,24 @@ To set up the development environment, follow these steps:
 1. Clone the repository
 2. Install dependencies:
    ```
-   npm install or bun install 
+   bun install 
    ```
 3. Start the development server:
    ```
-   npm run dev or bun ren dev
+   bun run dev
    ```
 
 ### Available Scripts
 
-- `npm run dev`: Starts the development server using Next.js
-- `npm run build`: Builds the application for production
-- `npm start`: Runs the built application in production mode
-- `npm run lint`: Runs the linter to check for code quality issues
-- `npm test`: Runs the Jest test suite
+- `bun run dev`: Starts the development server using Next.js
+- `bun run build`: Builds the application for production
+- `bun run start`: Runs the built application in production mode
+- `bun run lint`: Runs the linter to check for code quality issues
+- `bun run test`: Runs the Jest test suite
 
 ### Database Management
 
-- `npm run db:generate`: Generates database migrations using Drizzle Kit
-- `npm run db:migrate`: Applies database migrations
-- `npm run db:studio`: Launches Drizzle Kit Studio for database management
+- `bun run db:generate`: Generates database migrations using Drizzle Kit
+- `bun run db:migrate`: Applies database migrations
+- `bun run db:studio`: Launches Drizzle Kit Studio for database management
 
