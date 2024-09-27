@@ -89,7 +89,7 @@ To set up the development environment, follow these steps:
 
 ## 🧪 Test Unit
 
-1. Create file name ```babel.config.ts```
+1. Create file name ```babel.config.json```
 2. In file will be
    ```
    {
