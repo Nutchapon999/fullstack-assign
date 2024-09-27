@@ -86,6 +86,32 @@ To set up the development environment, follow these steps:
 - `bun run db:generate`: Generates database migrations using Drizzle Kit
 - `bun run db:migrate`: Applies database migrations
 - `bun run db:studio`: Launches Drizzle Kit Studio for database management
+
+## Test Unit
+
+1. Create file name ```babel.config.ts```
+2. In file will be
+   ```
+   {
+     "presets": ["@babel/preset-env"]
+   }
+   ```
+3. Uncomment in ``` @/db/dizzle.ts ```
+   config({ path: ".env.local" });
+
+   ```
+   config({ path: ".env.local" });
+   
+   if (!process.env.DATABASE_URL) {
+      throw new Error("DATABASE_URL environment variable is not set.");
+   }
+   ```
+4. Start the unit test:
+   ```
+   bun run test
+   ```
+   
+* Swap to Development Mode (Do Opposite)
   
 ## Architecture and Diagram
 
