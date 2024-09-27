@@ -18,7 +18,7 @@ export const AuthWrapper = ({
   description
 }: AuthWrapperProps) => {
   return (
-    <Card className="w-[420px] bg-transparent border-none shadow-none">
+    <Card className="w-auto md:w-[420px] bg-transparent border-none shadow-none">
       <CardHeader className="space-y-1">
         <CardTitle className="text-lg font-extrabold tracking-normal text-white">{ title }</CardTitle>
         <CardDescription className="text-sm text-white">

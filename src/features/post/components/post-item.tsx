@@ -26,7 +26,7 @@ interface PostItemProps {
   comment: number;
   isOur: boolean;
   isList: boolean;
-  blogLink?: string;
+  goBack?: JSX.Element;
 }
 
 export const PostItem = ({
@@ -39,7 +39,7 @@ export const PostItem = ({
   comment,
   isOur,
   isList,
-  blogLink = ""
+  goBack
 }: PostItemProps) => {
   const router = useRouter();
   const { onOpen } = usePostModal();
@@ -69,8 +69,9 @@ export const PostItem = ({
   return (
     <>
       <ConfirmationDialog />
+      { goBack }
       <div                            
-        onClick={() => router.push(isOur ? blogLink :`/posts/${id}`)}
+        onClick={() => router.push(`/posts/${id}`)}
         className={cn("bg-white h-[200px] hover:bg-white/80 transition-all duration-200 relative", isList && "p-5")}
       >
         {isOur &&(
