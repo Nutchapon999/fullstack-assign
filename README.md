@@ -1,8 +1,10 @@
-# Project Name
+# Fullstack Assignment
 
-## Libraries Used
+## Libraries and Dependencies
 
-This project uses the following libraries:
+This project uses the following libraries and dependencies:
+
+### Main Dependencies
 
 * **Next.js**: React framework for building web applications.
 * **React**: JavaScript library for building user interfaces.
@@ -20,18 +22,47 @@ This project uses the following libraries:
 * **Framer Motion**: Animation library for React.
 * **Lucide React**: Icon library for React applications.
 
+### Development Dependencies
+
+* **@babel/preset-env**: Babel preset for compiling JavaScript down to a version compatible with the current environments.
+* **@testing-library/** (jest-dom, react, etc.): Utilities for testing React components, focusing on accessibility and user interaction.
+* **@types/** (bcryptjs, jest, etc.): TypeScript type definitions for various libraries.
+* **babel-jest**: Jest transformer for Babel, allowing for ES6 module syntax.
+* **dotenv**: Module to load environment variables from a .env file into process.env.
+* **drizzle-kit**: Tooling for Drizzle ORM, likely for migrations and schema generation.
+* **eslint**: Linter for identifying and reporting on patterns in JavaScript.
+* **eslint-config-next**: ESLint configuration for Next.js projects.
+* **postcss**: Tool for transforming CSS with JavaScript plugins.
+* **tailwindcss**: Utility-first CSS framework for designing websites.
+* **ts-jest**: TypeScript preprocessor for Jest, enabling TypeScript support in tests.
+* **ts-node**: TypeScript execution environment for Node.js.
+* **typescript**: Superset of JavaScript that adds static types, enhancing code quality and maintainability.
+
 ## Getting Started
 
-[Add instructions on how to set up and run your project here]
+To set up the development environment, follow these steps:
 
-## Project Structure
+1. Clone the repository
+2. Install dependencies:
+   ```
+   npm install or bun install 
+   ```
+3. Start the development server:
+   ```
+   npm run dev or bun ren dev
+   ```
 
-[Explain the structure of your project here]
+### Available Scripts
 
-## Contributing
+- `npm run dev`: Starts the development server using Next.js
+- `npm run build`: Builds the application for production
+- `npm start`: Runs the built application in production mode
+- `npm run lint`: Runs the linter to check for code quality issues
+- `npm test`: Runs the Jest test suite
 
-[Add guidelines for contributing to your project here]
+### Database Management
 
-## License
+- `npm run db:generate`: Generates database migrations using Drizzle Kit
+- `npm run db:migrate`: Applies database migrations
+- `npm run db:studio`: Launches Drizzle Kit Studio for database management
 
-[Specify the license for your project here]
