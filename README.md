@@ -1,6 +1,6 @@
 # Fullstack Assignment
 
-## Environment Variables
+## 📄 Environment Variables
 
 This project uses environment variables for configuration. Create a `.env` file in the root directory of the project and add the following variables:
 
@@ -17,7 +17,7 @@ AUTH_SECRET=your_auth_secret
 - `DATABASE_URL`: The connection string for your PostgreSQL database. This example uses a Neon database.
 - `AUTH_SECRET`: A secret key used for authentication. This was added by `npx auth`. For more information, visit: https://cli.authjs.dev
 
-## Libraries and Dependencies
+## 📦 Libraries and Dependencies
 
 This project uses the following libraries and dependencies:
 
@@ -55,7 +55,7 @@ This project uses the following libraries and dependencies:
 * **ts-node**: TypeScript execution environment for Node.js.
 * **typescript**: Superset of JavaScript that adds static types, enhancing code quality and maintainability.
 
-## Getting Started
+## ⚡ Getting Started
 
 To set up the development environment, follow these steps:
 
@@ -87,7 +87,7 @@ To set up the development environment, follow these steps:
 - `bun run db:migrate`: Applies database migrations
 - `bun run db:studio`: Launches Drizzle Kit Studio for database management
 
-## Test Unit
+## 🧪 Test Unit
 
 1. Create file name ```babel.config.ts```
 2. In file will be
@@ -113,7 +113,7 @@ To set up the development environment, follow these steps:
    
 * Swap to Development Mode (Do Opposite)
   
-## Architecture and Diagram
+## 📊 Architecture and Diagram
 
 ### Architecture
 ![Architecture](/public/architecture.png)
