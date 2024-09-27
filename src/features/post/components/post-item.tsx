@@ -26,7 +26,6 @@ interface PostItemProps {
   comment: number;
   isOur: boolean;
   isList: boolean;
-  goBack?: JSX.Element;
 }
 
 export const PostItem = ({
@@ -39,7 +38,6 @@ export const PostItem = ({
   comment,
   isOur,
   isList,
-  goBack
 }: PostItemProps) => {
   const router = useRouter();
   const { onOpen } = usePostModal();
@@ -69,10 +67,9 @@ export const PostItem = ({
   return (
     <>
       <ConfirmationDialog />
-      { goBack }
       <div                            
         onClick={() => router.push(`/posts/${id}`)}
-        className={cn("bg-white h-[200px] hover:bg-white/80 transition-all duration-200 relative", isList && "p-5")}
+        className={cn("bg-white h-[200px] hover:bg-white/80 transition-all duration-200 relative", isList && "p-5 cursor-pointer")}
       >
         {isOur &&(
           <div className="absolute top-[6px] right-4 flex items-center p-[2px] rounded-sm">
@@ -90,7 +87,7 @@ export const PostItem = ({
             </button>
           </div>
         )}
-        <div className="flex flex-col justify-between h-full space-y-2">
+        <div className="flex flex-col justify-start h-full space-y-2">
           <div className="flex flex-col space-y-4">
             <div className="flex items-center space-x-3">
               <Avatar className="size-8">
@@ -103,16 +100,19 @@ export const PostItem = ({
                 { createdBy }
               </div>
             </div>
-            <Badge variant="secondary" className="text-[#37352f] w-fit">
+            <Badge variant="outline" className="text-[#37352f] w-fit bg-white">
               { community }
             </Badge>
           </div>
-          <div className="flex flex-col space-y-2">
-            <div className="flex flex-col">
+          <div className="flex flex-col justify-between space-y-2 flex-1">
+            <div className="flex flex-col ">
               <h1 className="text-base font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
                 { highlightText(title, searchTerm) }
               </h1>
-              <p className="text-xs font-normal line-clamp-2 overflow-hidden">
+              <p className={cn(
+                "text-xs font-normal overflow-hidden text-ellipsis whitespace-nowrap",
+                isList && "line-clamp-2"
+              )}>
                 { description }
               </p>
             </div>

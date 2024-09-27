@@ -9,7 +9,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 
-import { PostSchema } from "../schema";
+import { PostSchema } from "@/features/post/schema";
 import { PostForm } from "@/features/post/components/post-form";
 import { usePostModal } from "../store/use-post-modal";
 import { useCreatePost } from "../api/use-create-post";

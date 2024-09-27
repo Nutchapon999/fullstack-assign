@@ -16,7 +16,7 @@ export const Header = async () => {
   return (
     <header className="h-10 bg-[#243831] flex items-center justify-between py-1.5 px-4 fixed w-full z-50">
       <Logo />
-      <div className="sm:block hidden">
+      <div className="md:block hidden">
         {!session ? (
           <Button size="sm" asChild>
             <Link href="/auth/sign-in">

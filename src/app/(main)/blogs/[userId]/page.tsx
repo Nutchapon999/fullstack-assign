@@ -5,7 +5,7 @@ import { PostOurContent } from "@/features/post/components/post-our-content";
 const BlogByUserIdPage = () => {
 
   return (
-    <div className="max-w-[798px] my-8 mx-8 md:ml-[280px] overflow-hidden flex flex-col gap-6">
+    <div className="max-w-[798px] overflow-y-hidden flex flex-col h-full py-8 gap-6 mx-8 px-5">
       <Toolbar />
       <PostOurContent />
     </div>

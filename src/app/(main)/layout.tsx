@@ -11,7 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Header />
       <div className="flex bg-[#BBC2C0] min-h-screen h-full pt-10">
         <Sidebar />
-        <main className="w-full">
+        <main className="w-full md:pl-[280px]">
           { children }
         </main>
       </div>

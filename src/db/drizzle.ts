@@ -2,6 +2,8 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { config } from "dotenv";
 
+// *** Uncomment for unit test ***
+
 config({ path: ".env.local" });
 
 if (!process.env.DATABASE_URL) {

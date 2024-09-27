@@ -1,5 +1,6 @@
 "use client";
 
+import { TriangleAlert } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -40,6 +41,17 @@ export const PostContent = () => {
       </div>
     );
   };
+
+  if (!posts || posts.pages.length === 0 || posts.pages.every(page => page.data.length === 0)) {
+    return (
+      <div className="flex flex-col justify-center items-center h-full space-y-4">
+        <TriangleAlert className="size-7 text-gray-500 stroke-[1.5]" />
+        <div className="text-center text-gray-500">
+          No posts found
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="w-full flex flex-col justify-start gap-y-4">

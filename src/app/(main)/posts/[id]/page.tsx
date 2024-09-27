@@ -41,8 +41,8 @@ const PostByIdPage = () => {
   if (isLoading || data === undefined) return null;
 
   return (
-    <section className="md:ml-[280px] bg-white h-full flex justify-center">
-      <div className="w-[800px] mt-10 flex flex-col gap-y-8 pb-8 mx-5">
+    <section className="bg-white h-full flex justify-center py-8 gap-6">
+      <div className="w-[800px] mt-10 flex flex-col gap-y-8 pb-8 px-5 md:px-10">
         <button
           onClick={handleBack}
           className="size-11 bg-[#D8E9E4] flex justify-center items-center rounded-full"
