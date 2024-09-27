@@ -1,49 +1,89 @@
-Dependencies
+# Fullstack Assignment
 
-@auth/drizzle-adapter: Integrates authentication with Drizzle ORM.
-@hono/auth-js: Authentication middleware for Hono framework.
-@hono/zod-validator: Schema validation with Zod for Hono.
-@hookform/resolvers: Integrates validation libraries with React Hook Form.
-@neondatabase/serverless: Serverless database provider.
-*@radix-ui/react- (various)**: Accessible, unstyled UI components for React.
-@tanstack/react-query: Data-fetching and state management for React.
-bcryptjs: Password hashing for secure authentication.
-class-variance-authority: Utility for managing dynamic class names.
-clsx: Conditional className utility.
-date-fns: Date manipulation library.
-drizzle-orm: ORM for SQL databases.
-drizzle-zod: Type-safe schema definitions using Zod.
-framer-motion: Animation library for React.
-geist: UI library for modern web applications.
-hono: Fast web framework for APIs.
-jest: Testing framework for JavaScript.
-lucide-react: Collection of customizable React icons.
-next: React framework for server-rendered applications.
-next-auth: Authentication solution for Next.js.
-react: Library for building user interfaces.
-react-dom: Entry point for React DOM rendering.
-react-hook-form: Form management library.
-react-hot-toast: Toast notifications for React.
-react-use: Collection of essential React hooks.
-tailwind-merge: Merges Tailwind CSS classes.
-tailwindcss-animate: Animation utilities for Tailwind CSS.
-zod: TypeScript-first schema validation library.
-zustand: State management for React applications.
+## Environment Variables
 
-DevDependencies
+This project uses environment variables for configuration. Create a `.env` file in the root directory of the project and add the following variables:
 
-@testing-library/jest-dom: Custom matchers for Jest testing.
-@testing-library/react: Utilities for testing React components.
-@testing-library/react-hooks: Testing utilities for React hooks.
-@testing-library/user-event: Simulates user events in tests.
-*@types/ (various)**: Type definitions for TypeScript support.
-dotenv: Loads environment variables from a .env file.
-drizzle-kit: Tools for Drizzle ORM database migrations.
-eslint: Code analysis tool for identifying issues.
-eslint-config-next: ESLint configuration for Next.js.
-postcss: Tool for transforming CSS with JavaScript.
-tailwindcss: Utility-first CSS framework.
-typescript: Typed superset of JavaScript.
+```
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-.
+DATABASE_URL=postgresql://neondb_owner:VAL21fvjOWze@ep-snowy-band-a17bokcb.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+AUTH_SECRET="2dvPbyfZRtXm/ccIdRYVjTTMZIxRk83XjMOc/jtAdWU="
+```
+
+### Variable Descriptions:
+
+- `NEXT_PUBLIC_APP_URL`: The public URL of your application. Used for client-side references.
+- `DATABASE_URL`: The connection string for your PostgreSQL database. This example uses a Neon database.
+- `AUTH_SECRET`: A secret key used for authentication. This was added by `npx auth`. For more information, visit: https://cli.authjs.dev
+
+## Libraries and Dependencies
+
+This project uses the following libraries and dependencies:
+
+### Main Dependencies
+
+* **Next.js**: React framework for building web applications.
+* **React**: JavaScript library for building user interfaces.
+* **Hono**: Lightweight web framework for building APIs.
+* **Drizzle ORM**: TypeScript ORM for SQL databases.
+* **Zod**: TypeScript-first schema validation library.
+* **React Query**: Data fetching and state management library for React.
+* **React Hook Form**: Form handling library for React.
+* **Auth.js (NextAuth.js)**: Authentication library for Next.js applications.
+* **Tailwind CSS**: Utility-first CSS framework.
+* **Jest**: JavaScript testing framework.
+* **TypeScript**: Typed superset of JavaScript.
+* **Zustand**: Small, fast state management library.
+* **Radix UI**: Unstyled, accessible UI components for React.
+* **Framer Motion**: Animation library for React.
+* **Lucide React**: Icon library for React applications.
+
+### Development Dependencies
+
+* **@babel/preset-env**: Babel preset for compiling JavaScript down to a version compatible with the current environments.
+* **@testing-library/** (jest-dom, react, etc.): Utilities for testing React components, focusing on accessibility and user interaction.
+* **@types/** (bcryptjs, jest, etc.): TypeScript type definitions for various libraries.
+* **babel-jest**: Jest transformer for Babel, allowing for ES6 module syntax.
+* **dotenv**: Module to load environment variables from a .env file into process.env.
+* **drizzle-kit**: Tooling for Drizzle ORM, likely for migrations and schema generation.
+* **eslint**: Linter for identifying and reporting on patterns in JavaScript.
+* **eslint-config-next**: ESLint configuration for Next.js projects.
+* **postcss**: Tool for transforming CSS with JavaScript plugins.
+* **tailwindcss**: Utility-first CSS framework for designing websites.
+* **ts-jest**: TypeScript preprocessor for Jest, enabling TypeScript support in tests.
+* **ts-node**: TypeScript execution environment for Node.js.
+* **typescript**: Superset of JavaScript that adds static types, enhancing code quality and maintainability.
+
+## Getting Started
+
+To set up the development environment, follow these steps:
+
+1. Clone the repository
+2. Install dependencies:
+   ```
+   bun install 
+   ```
+3. Start the development server:
+   ```
+   bun run dev
+   ```
+4. Create auth secret
+   ```
+   bunx auth secret
+   ```
+   
+### Available Scripts
+
+- `bun run dev`: Starts the development server using Next.js
+- `bun run build`: Builds the application for production
+- `bun run start`: Runs the built application in production mode
+- `bun run lint`: Runs the linter to check for code quality issues
+- `bun run test`: Runs the Jest test suite
+
+### Database Management
+
+- `bun run db:generate`: Generates database migrations using Drizzle Kit
+- `bun run db:migrate`: Applies database migrations
+- `bun run db:studio`: Launches Drizzle Kit Studio for database management
 
