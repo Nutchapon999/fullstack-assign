@@ -2,7 +2,7 @@
 
 ## 📄 Environment Variables
 
-This project uses environment variables for configuration. Create a `.env` file in the root directory of the project and add the following variables:
+This project uses environment variables for configuration. Create a `.env.local` file in the root directory of the project and add the following variables:
 
 ```
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
