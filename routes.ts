@@ -1,8 +1,5 @@
 export const publicRoutes = [
   "/",
-  // "/api/users",
-  // "/api/posts",
-  // "/api/posts/our",
   "/posts/:id",
   "/:path*",
 ];

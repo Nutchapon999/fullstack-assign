@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Dependencies
 
-## Getting Started
+@auth/drizzle-adapter: Integrates authentication with Drizzle ORM.
+@hono/auth-js: Authentication middleware for Hono framework.
+@hono/zod-validator: Schema validation with Zod for Hono.
+@hookform/resolvers: Integrates validation libraries with React Hook Form.
+@neondatabase/serverless: Serverless database provider.
+*@radix-ui/react- (various)**: Accessible, unstyled UI components for React.
+@tanstack/react-query: Data-fetching and state management for React.
+bcryptjs: Password hashing for secure authentication.
+class-variance-authority: Utility for managing dynamic class names.
+clsx: Conditional className utility.
+date-fns: Date manipulation library.
+drizzle-orm: ORM for SQL databases.
+drizzle-zod: Type-safe schema definitions using Zod.
+framer-motion: Animation library for React.
+geist: UI library for modern web applications.
+hono: Fast web framework for APIs.
+jest: Testing framework for JavaScript.
+lucide-react: Collection of customizable React icons.
+next: React framework for server-rendered applications.
+next-auth: Authentication solution for Next.js.
+react: Library for building user interfaces.
+react-dom: Entry point for React DOM rendering.
+react-hook-form: Form management library.
+react-hot-toast: Toast notifications for React.
+react-use: Collection of essential React hooks.
+tailwind-merge: Merges Tailwind CSS classes.
+tailwindcss-animate: Animation utilities for Tailwind CSS.
+zod: TypeScript-first schema validation library.
+zustand: State management for React applications.
 
-First, run the development server:
+DevDependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+@testing-library/jest-dom: Custom matchers for Jest testing.
+@testing-library/react: Utilities for testing React components.
+@testing-library/react-hooks: Testing utilities for React hooks.
+@testing-library/user-event: Simulates user events in tests.
+*@types/ (various)**: Type definitions for TypeScript support.
+dotenv: Loads environment variables from a .env file.
+drizzle-kit: Tools for Drizzle ORM database migrations.
+eslint: Code analysis tool for identifying issues.
+eslint-config-next: ESLint configuration for Next.js.
+postcss: Tool for transforming CSS with JavaScript.
+tailwindcss: Utility-first CSS framework.
+typescript: Typed superset of JavaScript.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

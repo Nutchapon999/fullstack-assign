@@ -21,7 +21,7 @@ const app = new Hono().basePath("/api");
 
 app.use("*", initAuthConfig(getAuthConfig));
 
-const routes = app
+export const routes = app
   .route("/users", users)
   .route("/posts", posts)
   .route("/comments", comments)
