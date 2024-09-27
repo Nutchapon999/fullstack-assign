@@ -6,6 +6,7 @@ This project uses environment variables for configuration. Create a `.env` file 
 
 ```
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
 DATABASE_URL=postgresql://neondb_owner:VAL21fvjOWze@ep-snowy-band-a17bokcb.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
 AUTH_SECRET="2dvPbyfZRtXm/ccIdRYVjTTMZIxRk83XjMOc/jtAdWU="
 ```
@@ -67,7 +68,11 @@ To set up the development environment, follow these steps:
    ```
    bun run dev
    ```
-
+4. Create auth secret
+   ```
+   bunx auth secret
+   ```
+   
 ### Available Scripts
 
 - `bun run dev`: Starts the development server using Next.js
