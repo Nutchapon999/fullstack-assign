@@ -86,4 +86,13 @@ To set up the development environment, follow these steps:
 - `bun run db:generate`: Generates database migrations using Drizzle Kit
 - `bun run db:migrate`: Applies database migrations
 - `bun run db:studio`: Launches Drizzle Kit Studio for database management
+  
+## Architecture and Diagram
+
+### Architecture
+![Architecture](/public/architecture.png)
+
+### Diagram
+![Diagram](/public/diagram.png)
+
 
