@@ -55,7 +55,7 @@ This project uses the following libraries and dependencies:
 * **ts-node**: TypeScript execution environment for Node.js.
 * **typescript**: Superset of JavaScript that adds static types, enhancing code quality and maintainability.
 
-## ⚡ Getting Started
+## 🚀 Getting Started
 
 To set up the development environment, follow these steps:
 
