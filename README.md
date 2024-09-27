@@ -7,8 +7,8 @@ This project uses environment variables for configuration. Create a `.env` file 
 ```
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-DATABASE_URL=postgresql://neondb_owner:VAL21fvjOWze@ep-snowy-band-a17bokcb.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
-AUTH_SECRET="2dvPbyfZRtXm/ccIdRYVjTTMZIxRk83XjMOc/jtAdWU="
+DATABASE_URL=your_database_connection_string
+AUTH_SECRET=your_auth_secret
 ```
 
 ### Variable Descriptions:
