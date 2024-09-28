@@ -97,7 +97,6 @@ To set up the development environment, follow these steps:
    }
    ```
 3. Uncomment in ``` @/db/dizzle.ts ```
-   config({ path: ".env.local" });
 
    ```
    config({ path: ".env.local" });
